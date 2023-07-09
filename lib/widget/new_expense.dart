@@ -1,6 +1,5 @@
 import 'package:expense_tracker/models/expense.dart';
 import 'package:expense_tracker/widget/custom_widgets/custom_height.dart';
-import 'package:expense_tracker/widget/custom_widgets/custom_width.dart';
 import 'package:flutter/material.dart';
 
 class NewExpense extends StatefulWidget {
@@ -112,7 +111,9 @@ class _NewExpenseState extends State<NewExpense> {
               ),
               const Spacer(),
               ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pop(context);
+                },
                 child: const Text(
                   'Cancel',
                 ),
