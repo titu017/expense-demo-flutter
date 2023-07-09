@@ -1,5 +1,8 @@
+// import 'dart:js_interop';
+
 import 'package:expense_tracker/models/expense.dart';
 import 'package:expense_tracker/widget/custom_widgets/custom_height.dart';
+
 import 'package:flutter/material.dart';
 
 class NewExpense extends StatefulWidget {
@@ -13,6 +16,7 @@ class _NewExpenseState extends State<NewExpense> {
   final _titleController = TextEditingController();
   final _amountController = TextEditingController();
   DateTime? _selectedDate;
+  Category _selectedCategory = Category.leisure;
 
   @override
   void dispose() {
@@ -37,6 +41,15 @@ class _NewExpenseState extends State<NewExpense> {
 
     setState(() {
       _selectedDate = pickedDate;
+    });
+  }
+
+  void _showCategory(Category? category) {
+    if (category == null) {
+      return;
+    }
+    setState(() {
+      _selectedCategory = category;
     });
   }
 
@@ -97,13 +110,37 @@ class _NewExpenseState extends State<NewExpense> {
 
           Row(
             children: [
+              DropdownButton(
+                  value: _selectedCategory,
+                  items: Category.values
+                      .map(
+                        (category) => DropdownMenuItem(
+                          value: category,
+                          child: Text(
+                            category.name.toUpperCase(),
+                          ),
+                        ),
+                      )
+                      .toList(),
+                  onChanged: (v) {
+                    _showCategory(v);
+                    // if (v == null) {
+                    //   return;
+                    // }
+                    // setState(() {
+                    //   _selectedCategory = v;
+                    // });
+                  }),
+              const Spacer(),
               ElevatedButton(
                 onPressed: () {
                   print(
                     _titleController.text +
                         _amountController.text +
                         ' date: ' +
-                        _selectedDate.toString(),
+                        _selectedDate.toString() +
+                        ' ' +
+                        _selectedCategory.name,
                   );
                   // print(_inputTitleValue);
                 },
