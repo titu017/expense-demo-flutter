@@ -23,6 +23,26 @@ class _ExpensesState extends State<Expenses> {
         amount: 12,
         date: DateTime.now(),
         category: Category.leisure),
+    Expense(
+        title: 'Course',
+        amount: 20,
+        date: DateTime.now(),
+        category: Category.work),
+    Expense(
+        title: 'Movie',
+        amount: 12,
+        date: DateTime.now(),
+        category: Category.leisure),
+    Expense(
+        title: 'Course',
+        amount: 20,
+        date: DateTime.now(),
+        category: Category.work),
+    Expense(
+        title: 'Movie',
+        amount: 12,
+        date: DateTime.now(),
+        category: Category.leisure),
   ];
 
   void _openExpenseModalSheet() {

@@ -21,6 +21,7 @@ class _NewExpenseState extends State<NewExpense> {
 
   @override
   void dispose() {
+    // This method is used when item is removed from the list to remove tree
     _titleController.dispose();
     _amountController.dispose();
     super.dispose();
