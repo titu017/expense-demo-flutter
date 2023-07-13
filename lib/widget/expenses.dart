@@ -42,13 +42,44 @@ class _ExpensesState extends State<Expenses> {
   }
 
   void _removeExpense(Expense expense) {
+    final expenseIndex = _dummyExpense.indexOf(expense);
     setState(() {
       _dummyExpense.remove(expense);
     });
+    ScaffoldMessenger.of(context)
+        .clearSnackBars(); //to clear message if there is any active message e.g. when removing two item from the list, the message of the first removed content will be cleaned
+
+    // this method is used to show message when removing an expense from the list
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: const Text(
+          'Succesfully Deleted',
+        ),
+        duration: const Duration(
+          seconds: 3,
+        ),
+        action: SnackBarAction(
+          label: 'Undo',
+          onPressed: () {
+            setState(() {
+              _dummyExpense.insert(expenseIndex, expense);
+            });
+          },
+        ),
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
+    Widget mainContent = const Center(
+        child: Text('No expense added yet. Starting adding your expense.'));
+
+    if (_dummyExpense.isNotEmpty) {
+      // to show message on the screen if there is no expense
+      mainContent =
+          ExpenseList(expenses: _dummyExpense, onRemoveExpense: _removeExpense);
+    }
     return Scaffold(
       appBar: AppBar(
         title: const Text('Expense'),
@@ -65,8 +96,7 @@ class _ExpensesState extends State<Expenses> {
         children: [
           const Text('Chart'),
           Expanded(
-            child: ExpenseList(
-                expenses: _dummyExpense, onRemoveExpense: _removeExpense),
+            child: mainContent,
           ),
         ],
       ),

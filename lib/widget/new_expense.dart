@@ -95,6 +95,8 @@ class _NewExpenseState extends State<NewExpense> {
         children: [
           //Title starts from here
           TextField(
+            autofocus: true,
+            textInputAction: TextInputAction.next,
             controller: _titleController,
             // onChanged: _getTheTitleValue,
             maxLength: 50,
@@ -109,6 +111,7 @@ class _NewExpenseState extends State<NewExpense> {
             children: [
               Expanded(
                 child: TextField(
+                  textInputAction: TextInputAction.next,
                   keyboardType: TextInputType.number,
                   controller: _amountController,
                   decoration: const InputDecoration(
